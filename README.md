@@ -1,45 +1,49 @@
+
+
 # Gencity 3D — Intelligent City Planning Platform
 
-> **Team Pentacode** · A student-led research project applying algorithmic intelligence to real-world urban planning.
+**Team Pentacode** | A first-year engineering project by five students who wanted to build something that actually looked cool.
 
-Gencity 3D is a browser-based platform that generates, simulates, and visualises cities using procedural generation, graph algorithms, and 3D rendering. Its centrepiece — **Procity** — procedurally builds entire road networks, city blocks, and explorable 3D urban environments in real time.
+Gencity 3D is a browser-based platform that generates and visualises entire cities using procedural generation, graph algorithms, and 3D rendering. The main feature — **Procity** — builds full road networks, city blocks, and a walkable 3D environment right in your browser, no installation needed.
+
+We built this for our semester project. It's not perfect, but we're genuinely proud of it.
 
 ---
 
-## ✨ Features
+## Features
 
-- **Procity 3D City Generator** — Real-time procedural city generation with walkable first-person exploration
+- **Procity 3D City Generator** — Generates a new city procedurally every time. You can walk around in first-person mode.
 - **4 Camera Modes** — First Person, Bird Eye, Isometric, Top Down
 - **4 Visual Themes** — Cyberpunk, Noir, Soviet, Arctic
-- **Animated Particle System** — Interactive canvas background
-- **Custom Cursor** — Smooth animated cursor with hover effects
-- **Scroll Animations** — Intersection Observer-driven entrance animations
-- **Stat Counters** — Animated number counters on scroll
-- **Contact Form** — Client-side form submission handler
-- **Fully Responsive** — Mobile-first layout with media queries
+- **Animated Particle System** — The background canvas has moving particles (took longer than expected to get right)
+- **Custom Cursor** — Small detail but it makes the site feel more alive
+- **Scroll Animations** — Elements animate in as you scroll down the page
+- **Stat Counters** — Numbers count up when they come into view
+- **Contact Form** — Basic client-side form handler
+- **Fully Responsive** — Works on mobile too, though first-person mode is best on desktop
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 gencity-3d/
 │
-├── index.html              # Main HTML entry point (all pages)
+├── index.html              # Main HTML file — all pages are in here
 │
 ├── css/
 │   ├── styles.css          # Global styles: reset, variables, layout, components
-│   └── procity.css         # Procity module styles: HUD, toolbar, themes, splash
+│   └── procity.css         # Styles specific to the Procity module
 │
 ├── js/
-│   ├── main.js             # App core: routing, cursor, particles, observers, counters
-│   └── procity.js          # Procity engine: p5.js generation, Three.js 3D scene, input
+│   ├── main.js             # Core app logic: routing, cursor, particles, counters
+│   └── procity.js          # The city engine: p5.js generation + Three.js 3D scene
 │
-├── images/                 # Project images (screenshots, OG image, favicons)
+├── images/                 # Screenshots and other images go here
 │   └── .gitkeep
 │
 ├── assets/
-│   └── fonts/              # Self-hosted fonts (if added in future)
+│   └── fonts/              # Reserved for self-hosted fonts later
 │       └── .gitkeep
 │
 └── README.md               # This file
@@ -47,115 +51,109 @@ gencity-3d/
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
-### Option 1 — Open Directly (simplest)
-1. Download or clone the repository
-2. Open `index.html` in any modern browser (Chrome, Firefox, Edge, Safari)
+### Option 1 — Just open the file (simplest)
+1. Download or clone the repo
+2. Open `index.html` in Chrome, Firefox, Edge, or Safari
 
-> **Note:** Some browsers restrict local file access. If Procity doesn't load, use Option 2.
+> Note: Some browsers block local file access. If Procity doesn't load, use Option 2.
 
-### Option 2 — Local Dev Server (recommended)
+### Option 2 — Local server (recommended)
 
-**Using VS Code Live Server:**
+**VS Code Live Server:**
 1. Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-2. Right-click `index.html` → **Open with Live Server**
+2. Right-click `index.html` and choose "Open with Live Server"
 
-**Using Python:**
+**Python (if you have it installed):**
 ```bash
-# Python 3
 python -m http.server 8080
-
-# Then open: http://localhost:8080
+# Then open http://localhost:8080 in your browser
 ```
 
-**Using Node.js:**
+**Node.js:**
 ```bash
 npx serve .
-# Then open the URL shown in terminal
 ```
 
 ---
 
-## 🎮 Procity Controls
+## Procity Controls
 
-| Key / Action | Function |
+| Key / Action | What it does |
 |---|---|
-| `WASD` / Arrow Keys | Move (First Person) |
-| `Mouse` | Look around (click canvas to toggle) |
-| `Shift` | Sprint |
-| `M` | Toggle minimap |
-| `R` | Generate new city |
-| `1` | First Person view |
-| `2` | Bird Eye view |
-| `3` | Isometric view |
-| `4` | Top Down view |
-| `Scroll` | Zoom (Bird Eye / Isometric) |
-| `Drag` | Orbit (Bird Eye) |
+| WASD / Arrow Keys | Move around (First Person mode) |
+| Mouse | Look around — click the canvas to start |
+| Shift | Sprint |
+| M | Toggle the minimap |
+| R | Generate a completely new city |
+| 1 | Switch to First Person view |
+| 2 | Switch to Bird Eye view |
+| 3 | Switch to Isometric view |
+| 4 | Switch to Top Down view |
+| Scroll | Zoom in/out (Bird Eye and Isometric) |
+| Drag | Orbit the camera (Bird Eye) |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-| Layer | Technology |
+| Layer | What we used |
 |---|---|
 | Structure | HTML5 |
 | Styling | CSS3 (Custom Properties, Grid, Flexbox, Animations) |
-| App Logic | Vanilla JavaScript (ES6+) |
-| 3D Rendering | [Three.js r128](https://threejs.org/) |
-| 2D Generation | [p5.js 1.9.0](https://p5js.org/) |
-| Polygon Clipping | [Clipper.js 6.4.2](https://github.com/junmer/clipper-lib) |
+| Logic | Vanilla JavaScript (ES6+) |
+| 3D Rendering | Three.js r128 |
+| 2D Generation | p5.js 1.9.0 |
+| Polygon Clipping | Clipper.js 6.4.2 |
 | Fonts | Google Fonts (Rajdhani, Cormorant Garamond, DM Sans, Share Tech Mono) |
+
+We intentionally kept it dependency-light. No React, no build tools, no bundler. It runs straight from the HTML file.
 
 ---
 
-## 🌿 Naming Conventions
+## Naming Conventions
+
+We tried to keep the code readable for everyone on the team, including people who don't normally do frontend.
 
 | Type | Convention | Example |
 |---|---|---|
 | Folders | lowercase, hyphenated | `css/`, `js/`, `images/` |
 | HTML files | lowercase, hyphenated | `index.html` |
-| CSS files | lowercase, hyphenated, feature-scoped | `styles.css`, `procity.css` |
-| JS files | lowercase, hyphenated, feature-scoped | `main.js`, `procity.js` |
+| CSS files | lowercase, hyphenated | `styles.css`, `procity.css` |
+| JS files | lowercase, hyphenated | `main.js`, `procity.js` |
 | CSS classes | BEM-inspired, kebab-case | `.feat-card`, `.hero-title` |
 | JS variables | camelCase | `bgCanvas`, `initObservers` |
-| Procity internals | `pc_` prefix to avoid globals | `pc_scene`, `pc_camera` |
-| CSS variables | kebab-case with `--` prefix | `--blue-1`, `--void` |
+| Procity internals | `pc_` prefix | `pc_scene`, `pc_camera` |
+| CSS variables | `--` prefix | `--blue-1`, `--void` |
+
+The `pc_` prefix on Procity variables was something we added after running into a naming conflict early on. Lesson learned.
 
 ---
 
-## 📤 Pushing to GitHub
+## Pushing to GitHub
 
 ```bash
-# 1. Initialise a new Git repository
+# First time setup
 git init
-
-# 2. Add all project files
 git add .
-
-# 3. Make the first commit
 git commit -m "feat: initial project structure — Gencity 3D by Team Pentacode"
-
-# 4. Create a new repo on GitHub (via github.com), then link it:
 git remote add origin https://github.com/YOUR_USERNAME/gencity-3d.git
-
-# 5. Push to GitHub
 git branch -M main
 git push -u origin main
 ```
 
-**For subsequent updates:**
 ```bash
+# After making changes
 git add .
-git commit -m "feat: describe your change here"
+git commit -m "feat: describe what you changed"
 git push
 ```
 
-**Recommended branch strategy:**
+If you're working on something big, use a feature branch:
 ```bash
-# Feature branches
 git checkout -b feature/procity-minimap
-# ... make changes ...
+# make your changes
 git checkout main
 git merge feature/procity-minimap
 git push
@@ -163,19 +161,20 @@ git push
 
 ---
 
-## 🧩 Scalability Notes
+## Adding to the Project
 
-- To add new pages, create a `<div class="page" id="page-yourname">` and add a nav link with `data-page="yourname"`
-- To add new CSS modules (e.g. for a blog section), create `css/blog.css` and link it in `<head>`
-- To add new JS modules, create `js/module-name.js` and load it before `</body>`
-- Images for the project go in `/images/`. Use descriptive names: `procity-screenshot.png`, `og-image.jpg`
-- Fonts added in future go in `/assets/fonts/` with corresponding `@font-face` declarations in `styles.css`
+A few notes for anyone who wants to extend this later:
+
+- To add a new page, create a `<div class="page" id="page-yourname">` and add a nav link with `data-page="yourname"`. The router in `main.js` handles the rest.
+- New CSS sections go in their own file (e.g. `css/blog.css`) and get linked in `<head>`.
+- New JS modules go in `js/` and should be loaded before `</body>`.
+- Images go in `/images/` — use descriptive filenames like `procity-screenshot.png`.
 
 ---
 
-## 👥 Team
+## Team
 
-| Member | Role |
+| Name | Role |
 |---|---|
 | Irfan ul Haq | Frontend Developer |
 | Harshini | Frontend Developer |
@@ -185,6 +184,6 @@ git push
 
 ---
 
-## 📄 Licence
+## Licence
 
 © 2026 Gencity 3D · Team Pentacode. All rights reserved.
