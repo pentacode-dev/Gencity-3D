@@ -1,0 +1,156 @@
+/* ============================================================
+   GENCITY 3D — Procity Module Styles
+   Description: Styles for the Procedural 3D City Generator
+   ============================================================ */
+
+/* Load Procity-specific font */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* ── PROCITY PAGE WRAPPER ── */
+#page-procity{padding:0;min-height:100vh;position:relative;z-index:1;}
+#page-procity.active{display:block;}
+
+/* ── PROCITY ROOT CONTAINER ── */
+.procity-root{
+  position:relative;width:100%;height:100vh;overflow:hidden;
+  font-family:'Share Tech Mono',monospace;
+}
+
+/* ── CANVAS LAYERS ── */
+.procity-root #p5-canvas-container{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.procity-root #p5-canvas-container.active{opacity:1;pointer-events:all;}
+.procity-root #three-canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+
+/* ── TOOLBAR ── */
+.procity-root #toolbar{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;gap:0;z-index:200;
+  border:1px solid var(--pc-txt3);
+  background:var(--pc-bg);
+  pointer-events:all;isolation:isolate;
+}
+.procity-root .tb-group{display:flex;border-right:1px solid var(--pc-txt3);}
+.procity-root .tb-group:last-child{border-right:none;}
+.procity-root .tb-btn{
+  padding:9px 14px;font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--pc-txt2);background:transparent;border:none;cursor:pointer;
+  transition:color 0.15s,background 0.15s;white-space:nowrap;
+}
+.procity-root .tb-btn:hover{color:var(--pc-txt);background:var(--pc-txt3);}
+.procity-root .tb-btn.active{color:var(--pc-bgd);background:var(--pc-ac);}
+.procity-root #btn-new{color:var(--pc-ac);border-left:1px solid var(--pc-txt3);}
+.procity-root #btn-new:hover{background:var(--pc-ac);color:var(--pc-bgd);}
+
+/* ── HUD ── */
+.procity-root .hud{position:absolute;color:var(--pc-txt);pointer-events:none;font-size:11px;letter-spacing:0.08em;font-family:'Share Tech Mono',monospace;}
+.procity-root #hud-tl{top:18px;left:18px;}
+.procity-root #hud-tl .lbl{color:var(--pc-txt2);font-size:10px;text-transform:uppercase;}
+.procity-root #hud-tl .val{color:var(--pc-txt);font-size:13px;margin-bottom:6px;}
+.procity-root #hud-tr{top:18px;right:18px;text-align:right;}
+.procity-root #hud-tr .key{color:var(--pc-txt3);font-size:10px;}
+.procity-root #hud-tr .dsc{color:var(--pc-txt2);font-size:10px;margin-bottom:3px;}
+.procity-root #hud-bl{bottom:60px;left:18px;}
+.procity-root #hud-bl .state{font-size:10px;color:var(--pc-txt2);}
+
+/* ── CROSSHAIR ── */
+.procity-root #crosshair{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;width:20px;height:20px;display:none;
+}
+.procity-root #crosshair::before,.procity-root #crosshair::after{content:'';position:absolute;background:var(--pc-txt2);}
+.procity-root #crosshair::before{width:1px;height:100%;left:50%;top:0;}
+.procity-root #crosshair::after{width:100%;height:1px;top:50%;left:0;}
+
+/* ── MINIMAP ── */
+.procity-root #minimap{
+  position:absolute;bottom:60px;right:18px;
+  width:200px;height:200px;
+  border:1px solid var(--pc-txt3);background:rgba(0,0,0,0.85);
+  overflow:hidden;display:none;
+}
+.procity-root #minimap.vis{display:block;}
+.procity-root #minimap canvas{width:100%!important;height:100%!important;}
+.procity-root #mm-label{position:absolute;top:4px;left:6px;font-size:9px;color:var(--pc-txt2);letter-spacing:0.1em;}
+.procity-root #mm-dot{
+  position:absolute;width:5px;height:5px;background:#ff4444;
+  border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+
+/* ── SPLASH SCREEN ── */
+.procity-root #splash{
+  position:absolute;inset:0;background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:100;transition:opacity 0.8s;
+}
+.procity-root #splash.fade{opacity:0;pointer-events:none;}
+.procity-root #splash-title{
+  font-family:'Rajdhani',sans-serif;font-size:52px;font-weight:700;
+  color:var(--pc-ac);letter-spacing:0.18em;text-transform:uppercase;
+  text-shadow:0 0 40px var(--pc-txt3);margin-bottom:8px;
+}
+.procity-root #splash-sub{font-size:11px;color:var(--pc-txt2);letter-spacing:0.25em;margin-bottom:48px;}
+.procity-root #progress-bar{width:280px;height:1px;background:var(--pc-txt3);position:relative;overflow:hidden;}
+.procity-root #progress-fill{height:100%;background:var(--pc-ac);width:0%;transition:width 0.3s ease;box-shadow:0 0 8px var(--pc-ac);}
+.procity-root #progress-text{margin-top:10px;font-size:10px;color:var(--pc-txt2);letter-spacing:0.15em;text-align:center;}
+.procity-root #gen-bar{
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--pc-ac),var(--pc-ac2),var(--pc-ac));
+  background-size:200% 100%;animation:pcsweep 1.2s linear infinite;
+}
+@keyframes pcsweep{0%{background-position:0%}100%{background-position:200%}}
+
+/* ── LOCK PROMPT ── */
+.procity-root #lock-prompt{
+  position:absolute;inset:0;background:rgba(0,0,0,0.7);
+  display:flex;align-items:center;justify-content:center;
+  z-index:50;cursor:pointer;
+}
+.procity-root #lock-prompt.hidden{display:none;}
+.procity-root #lock-inner{border:1px solid var(--pc-txt3);padding:32px 52px;text-align:center;background:var(--pc-bg);}
+.procity-root #lock-inner h2{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:500;color:var(--pc-ac);letter-spacing:0.2em;margin-bottom:8px;}
+.procity-root #lock-inner p{font-size:11px;color:var(--pc-txt2);letter-spacing:0.12em;}
+
+/* ── ORBIT HINT ── */
+.procity-root #orbit-hint{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;text-align:center;color:var(--pc-txt2);font-size:11px;
+  letter-spacing:0.1em;display:none;
+}
+.procity-root #orbit-hint.vis{display:block;}
+
+/* ── VIEW FLASH ── */
+.procity-root #view-flash{
+  position:absolute;inset:0;background:var(--pc-ac);opacity:0;
+  pointer-events:none;z-index:20;transition:opacity 0.15s;
+}
+
+/* ── PROCITY THEMES ── */
+
+/* Cyberpunk (default) */
+.procity-root{
+  --pc-ac:#00ff88; --pc-ac2:#00ccff; --pc-ac3:#ff00aa;
+  --pc-bg:rgba(0,10,0,0.9); --pc-bgd:#000a05;
+  --pc-txt:#00ff88; --pc-txt2:#00ff8866; --pc-txt3:#00ff8833;
+}
+
+/* Noir */
+.procity-root.theme-noir{
+  --pc-ac:#e8d5a3; --pc-ac2:#c4a882; --pc-ac3:#8b6914;
+  --pc-bg:rgba(8,6,4,0.95); --pc-bgd:#080604;
+  --pc-txt:#e8d5a3; --pc-txt2:#e8d5a366; --pc-txt3:#e8d5a322;
+}
+
+/* Soviet */
+.procity-root.theme-soviet{
+  --pc-ac:#ff3333; --pc-ac2:#ff8800; --pc-ac3:#ffcc00;
+  --pc-bg:rgba(12,4,4,0.95); --pc-bgd:#0c0404;
+  --pc-txt:#ff3333; --pc-txt2:#ff333366; --pc-txt3:#ff333322;
+}
+
+/* Arctic */
+.procity-root.theme-arctic{
+  --pc-ac:#88ddff; --pc-ac2:#aaeeff; --pc-ac3:#ffffff;
+  --pc-bg:rgba(2,8,16,0.95); --pc-bgd:#020810;
+  --pc-txt:#88ddff; --pc-txt2:#88ddff66; --pc-txt3:#88ddff22;
+}

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gencity 3D — Intelligent City Planning</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/procity.css"/>
+
+  <!-- Third-party CDN dependencies (Procity engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/clipper-lib@6.4.2/clipper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor">
+  <div class="dot"></div>
+  <div class="ring"></div>
+</div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="canvas"></canvas>
+
+<!-- GRID OVERLAY -->
+<div id="grid-overlay"></div>
+
+<!-- SCROLL METER -->
+<div class="scroll-meter">
+  <span class="sm-label">Depth</span>
+  <div class="sm-track"><div class="sm-fill" id="smFill"></div></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;">GENCITY<span> 3D</span></a>
+  <ul class="nav-links">
+    <li><a href="#" class="active" data-page="home" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" data-page="vision" onclick="showPage('vision');return false;">Roadmap</a></li>
+    <li><a href="#" data-page="procity" onclick="showPage('procity');return false;">Procity</a></li>
+    <li><a href="#" data-page="about" onclick="showPage('about');return false;">About Us</a></li>
+    <li><a href="#" data-page="contact" onclick="showPage('contact');return false;">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-eyebrow">Next-Generation Urban Intelligence</div>
+    <h1 class="hero-title">Gencity<em> 3D</em></h1>
+    <div class="hero-team">Team Pentacode</div>
+    <p class="hero-sub">We are engineering the future of cities — where algorithm meets urban planning to create spaces that breathe, flow, and thrive.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary" onclick="showPage('procity');return false;">Explore Procity</a>
+      <a href="#" class="btn btn-outline" onclick="showPage('about');return false;">Meet the Team</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-num" data-target="40">0<span style="font-size:.45em;color:var(--muted)">%</span></div>
+        <div class="stat-label">Traffic Reduction</div>
+      </div>
+      <div>
+        <div class="stat-num" data-target="3">0<span style="font-size:.45em;color:var(--muted)">x</span></div>
+        <div class="stat-label">Faster Planning</div>
+      </div>
+      <div>
+        <div class="stat-num" data-target="98">0<span style="font-size:.45em;color:var(--muted)">%</span></div>
+        <div class="stat-label">Accuracy Rate</div>
+      </div>
+      <div>
+        <div class="stat-num" data-target="12">0<span style="font-size:.45em;color:var(--muted)">+</span></div>
+        <div class="stat-label">Cities Modelled</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <div class="section">
+    <p class="sec-label">What We Build</p>
+    <h2 class="sec-title">Intelligence built<br>for <em>real cities</em></h2>
+    <div class="feat-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0;">
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">City Layout Generation</div>
+          <p class="feat-desc">Input a ground plan and define your requirements — schools, hospitals, parks, commercial zones — and get an optimised zoning layout built around how people actually live.</p>
+        </div>
+      </div>
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6l4 6-4 6M21 6l-4 6 4 6"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">Road Optimisation</div>
+          <p class="feat-desc">Graph-based traffic modelling runs thousands of scenarios to surface the network that cuts congestion, shortens commutes, and keeps emergency routes clear at all times.</p>
+        </div>
+      </div>
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">Pipeline Engineering</div>
+          <p class="feat-desc">Terrain-aware routing for water, sewage, and utility lines — pressure-optimised and laid out so maintenance is straightforward from day one, not an afterthought.</p>
+        </div>
+      </div>
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">Green Space Planner</div>
+          <p class="feat-desc">Park and green corridor placement driven by equity — ensuring every neighbourhood has walkable access to natural space, with measurable impact on air quality and resident wellbeing.</p>
+        </div>
+      </div>
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">Smart Grid Design</div>
+          <p class="feat-desc">Energy infrastructure that accounts for renewables, load distribution, and grid resilience from the outset — not retrofitted later when it costs three times as much.</p>
+        </div>
+      </div>
+
+      <div class="feat-card" style="padding:36px 40px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:42px;height:42px;border:1px solid rgba(0,200,255,.25);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="feat-title" style="margin-bottom:10px;">Growth Simulation</div>
+          <p class="feat-desc">Model population density, infrastructure stress, and urban sprawl across 10, 20, and 50-year horizons — so the decisions made today don't become tomorrow's crises.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="section" style="padding-top:0">
+    <p class="sec-label">How It Works</p>
+    <h2 class="sec-title">From <em>blank plot</em><br>to living city</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Upload Your Plan</div>
+        <p class="step-desc">Import a satellite image, hand-drawn sketch, or CAD file of your land area. Our vision system interprets boundaries, terrain, and existing structures.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Define Requirements</div>
+        <p class="step-desc">Tell Gencity 3D what you need — population targets, building types, environmental constraints, and budget boundaries. Natural language accepted.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Algorithm Generates Plan</div>
+        <p class="step-desc">Our multi-model system simultaneously optimises roads, utilities, zoning, and green space — running thousands of simulations to surface the best configurations.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Review &amp; Refine</div>
+        <p class="step-desc">Interact with a 3D city model, adjust parameters, ask follow-up questions, and export professional-grade plans ready for engineering and approval.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2 class="cta-title">Build the city<br>of <em>tomorrow</em></h2>
+    <p class="cta-sub">Gencity 3D is currently in active development. Be among the first to shape the future of urban intelligence.</p>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+      <a href="#" class="btn btn-primary" onclick="showPage('procity');return false;">Try Procity</a>
+      <a href="#" class="btn btn-outline" onclick="showPage('contact');return false;">Get in Touch</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">GENCITY 3D</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('vision');return false;">Vision</a></li>
+      <li><a href="#" onclick="showPage('procity');return false;">Procity</a></li>
+      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+      <li><a href="#" onclick="showPage('contact');return false;">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Gencity 3D · Team Pentacode</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: ABOUT
+════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <p class="sec-label" style="text-align:center">The People Behind It</p>
+    <h1 class="sec-title" style="text-align:center;margin-bottom:28px">Team <em>Pentacode</em></h1>
+    <p class="about-intro">We are five engineers, designers, and thinkers united by a single ambition — to make urban planning smarter, more equitable, and more human. Gencity 3D was born from the belief that the cities of tomorrow deserve the intelligence of today's best algorithm.</p>
+  </div>
+
+  <div class="team-grid">
+    <div class="member-card">
+      <div class="member-avatar">IH</div>
+      <div class="member-name">Irfan ul Haq</div>
+      <div class="member-role">Frontend Developer</div>
+      <p class="member-bio">Leads Gencity 3D's core intelligence systems, specialising in LLMs and multi-agent planning.</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar">HR</div>
+      <div class="member-name">Harshini</div>
+      <div class="member-role">Frontend Developer</div>
+      <p class="member-bio">Crafts city interfaces with a design-first philosophy, blending aesthetics with rigorous engineering.</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar">SH</div>
+      <div class="member-name">Sahana</div>
+      <div class="member-role">Backend Developer</div>
+      <p class="member-bio">Owns data pipelines and cloud infrastructure powering Gencity 3D's real-time city modelling engine.</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar">JS</div>
+      <div class="member-name">Jayachandra Sai</div>
+      <div class="member-role">Algorithm Architect</div>
+      <p class="member-bio">Designs graph algorithms and optimisation models for road networks, pipelines, and zoning layouts.</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar">AN</div>
+      <div class="member-name">Anirudh</div>
+      <div class="member-role">Backend Developer</div>
+      <p class="member-bio">Builds growth simulation systems that turn long-range urban futures into actionable insights.</p>
+    </div>
+  </div>
+
+  <div class="about-mission">
+    <p class="sec-label">Our Philosophy</p>
+    <p class="mission-text">"The best city is one that was never built by chance. Every road, every pipe, every park — each is a decision with consequences that ripple through generations. <em>We give planners the intelligence to make those decisions well.</em>"</p>
+  </div>
+
+  <footer>
+    <div class="footer-logo">GENCITY 3D</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('vision');return false;">Vision</a></li>
+      <li><a href="#" onclick="showPage('procity');return false;">Procity</a></li>
+      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Gencity 3D · Team Pentacode</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: VISION / ROADMAP
+════════════════════════════════════════ -->
+<div class="page" id="page-vision">
+  <div class="vision-hero section" style="text-align:center;padding-bottom:40px;">
+    <p class="sec-label">Where We're Going</p>
+    <h1 class="sec-title" style="margin-bottom:20px">The <em>Roadmap</em></h1>
+    <p style="max-width:560px;margin:0 auto;font-size:.9rem;line-height:1.8;color:var(--muted);">Gencity 3D is on a mission to become the world's most comprehensive algorithm platform for urban planning. Here is how we get there.</p>
+  </div>
+
+  <div class="roadmap">
+    <div class="roadmap-item">
+      <div class="roadmap-phase">01</div>
+      <div class="roadmap-content">
+        <div class="roadmap-title">Foundation — Procity 3D City Generator</div>
+        <p class="roadmap-desc">A procedural 3D city generator that creates full urban environments in real time — complete with road networks, building blocks, and walkable first-person exploration. Available now as a live prototype.</p>
+        <div class="roadmap-tags"><span class="rtag">Active</span><span class="rtag">Three.js</span><span class="rtag">p5.js</span></div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">02</div>
+      <div class="roadmap-content">
+        <div class="roadmap-title">Vision — Ground Plan Upload &amp; Zone Generation</div>
+        <p class="roadmap-desc">Users upload a plot map or satellite image. Gencity 3D analyses the terrain and generates optimised building placement, zoning recommendations, and initial road network proposals.</p>
+        <div class="roadmap-tags"><span class="rtag">In Development</span><span class="rtag">Computer Vision</span><span class="rtag">GIS</span></div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">03</div>
+      <div class="roadmap-content">
+        <div class="roadmap-title">Intelligence — Full Infrastructure Optimisation</div>
+        <p class="roadmap-desc">Complete road network optimisation using traffic simulation, combined with automated pipeline routing for water, energy, and communications — all generated from a single city specification.</p>
+        <div class="roadmap-tags"><span class="rtag">Planned</span><span class="rtag">Graph Theory</span><span class="rtag">Simulation</span></div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">04</div>
+      <div class="roadmap-content">
+        <div class="roadmap-title">Platform — 3D Visualisation &amp; Collaboration</div>
+        <p class="roadmap-desc">A full 3D city preview environment where planners, architects, and civic leaders can explore, annotate, and collaboratively refine algorithm-generated city models in real time.</p>
+        <div class="roadmap-tags"><span class="rtag">Future</span><span class="rtag">WebGL</span><span class="rtag">Real-time</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <p class="sec-label">Technology Stack</p>
+    <h2 class="sec-title" style="margin-bottom:40px">Built on <em>cutting-edge</em> foundations</h2>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-item"><span class="tech-icon">🗺️</span><div class="tech-name">GIS &amp; Mapping</div></div>
+    <div class="tech-item"><span class="tech-icon">📐</span><div class="tech-name">Graph Algorithms</div></div>
+    <div class="tech-item"><span class="tech-icon">🌐</span><div class="tech-name">WebGL / Three.js</div></div>
+    <div class="tech-item"><span class="tech-icon">📊</span><div class="tech-name">Data Simulation</div></div>
+    <div class="tech-item"><span class="tech-icon">✂️</span><div class="tech-name">Clipper.js</div></div>
+    <div class="tech-item"><span class="tech-icon">🎨</span><div class="tech-name">p5.js</div></div>
+  </div>
+
+  <footer style="margin-top:60px;">
+    <div class="footer-logo">GENCITY 3D</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('vision');return false;">Vision</a></li>
+      <li><a href="#" onclick="showPage('procity');return false;">Procity</a></li>
+      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Gencity 3D · Team Pentacode</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: PROCITY (3D City Generator)
+════════════════════════════════════════ -->
+<div class="page" id="page-procity">
+  <div class="procity-root" id="procity-root">
+
+    <!-- Splash / Loading Screen -->
+    <div id="splash">
+      <div id="splash-title">PROCITY</div>
+      <div id="splash-sub">procedural urban generator · 3d</div>
+      <div id="progress-bar"><div id="progress-fill"></div></div>
+      <div id="progress-text">INITIALIZING ROAD NETWORK...</div>
+      <div id="gen-bar"></div>
+    </div>
+
+    <!-- FPS Lock Prompt -->
+    <div id="lock-prompt" class="hidden">
+      <div id="lock-inner">
+        <h2>CLICK TO EXPLORE</h2>
+        <p>WASD · MOVE &nbsp;|&nbsp; MOUSE · LOOK (click canvas to toggle) &nbsp;|&nbsp; SHIFT · SPRINT &nbsp;|&nbsp; M · MAP &nbsp;|&nbsp; R · NEW CITY</p>
+      </div>
+    </div>
+
+    <div id="view-flash"></div>
+    <div id="p5-canvas-container"></div>
+    <canvas id="three-canvas"></canvas>
+    <div id="crosshair"></div>
+    <div id="orbit-hint">DRAG TO PAN &nbsp;·&nbsp; SCROLL TO ZOOM</div>
+
+    <!-- HUD: Top Left -->
+    <div class="hud" id="hud-tl">
+      <div class="lbl">seed</div><div class="val" id="h-seed">—</div>
+      <div class="lbl">blocks</div><div class="val" id="h-blocks">—</div>
+      <div class="lbl">buildings</div><div class="val" id="h-buildings">—</div>
+      <div class="lbl">position</div><div class="val" id="h-pos">—</div>
+      <div class="lbl">view</div><div class="val" id="h-view">FIRST PERSON</div>
+      <div class="lbl">theme</div><div class="val" id="h-theme">CYBERPUNK</div>
+    </div>
+
+    <!-- HUD: Top Right (controls reference) -->
+    <div class="hud" id="hud-tr">
+      <div><span class="key">WASD</span> <span class="dsc">move</span></div>
+      <div><span class="key">MOUSE</span> <span class="dsc">look</span></div>
+      <div><span class="key">SHIFT</span> <span class="dsc">sprint</span></div>
+      <div><span class="key">M</span> <span class="dsc">minimap</span></div>
+      <div><span class="key">R</span> <span class="dsc">new city</span></div>
+    </div>
+
+    <!-- HUD: Bottom Left (status) -->
+    <div class="hud" id="hud-bl">
+      <div class="state" id="h-state">GENERATING CITY...</div>
+    </div>
+
+    <!-- Minimap -->
+    <div id="minimap">
+      <div id="mm-label">MINIMAP [M]</div>
+      <div id="mm-dot"></div>
+    </div>
+
+    <!-- Toolbar -->
+    <div id="toolbar">
+      <div class="tb-group">
+        <button class="tb-btn active" id="btn-fps" onclick="pcSetView('fps')">⊙ First Person</button>
+        <button class="tb-btn" id="btn-bird" onclick="pcSetView('bird')">▲ Bird Eye</button>
+        <button class="tb-btn" id="btn-iso" onclick="pcSetView('iso')">◈ Isometric</button>
+        <button class="tb-btn" id="btn-top" onclick="pcSetView('top')">⊞ Top Down</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn active" id="btn-t-cyberpunk" onclick="pcSetTheme('cyberpunk')">◉ Cyberpunk</button>
+        <button class="tb-btn" id="btn-t-noir" onclick="pcSetTheme('noir')">◑ Noir</button>
+        <button class="tb-btn" id="btn-t-soviet" onclick="pcSetTheme('soviet')">◈ Soviet</button>
+        <button class="tb-btn" id="btn-t-arctic" onclick="pcSetTheme('arctic')">◇ Arctic</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" id="btn-new" onclick="pcNewCity()">↻ New City</button>
+      </div>
+    </div>
+
+  </div><!-- end .procity-root -->
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: CONTACT
+════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="section" style="text-align:center;padding-bottom:60px;">
+    <p class="sec-label">Reach Out</p>
+    <h1 class="sec-title" style="margin-bottom:16px">Let's build <em>together</em></h1>
+    <p style="max-width:480px;margin:0 auto;font-size:.9rem;line-height:1.8;color:var(--muted);">We're actively seeking collaborators, mentors, and early adopters. Whether you're a city planner, investor, or fellow builder — we want to hear from you.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Gencity 3D is a student-led research project by Team Pentacode, focused on applying algorithm to real-world urban planning challenges. We are open to partnerships, academic collaborations, and pilot programme discussions.</p>
+      <div class="contact-detail">
+        <div class="c-item">
+          <div class="c-icon">✉️</div>
+          <div class="c-text"><strong>Email</strong>team@gencity3d.dev</div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div class="c-text"><strong>Location</strong>India · Remote-first team</div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🕐</div>
+          <div class="c-text"><strong>Response Time</strong>Within 48 hours</div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🎓</div>
+          <div class="c-text"><strong>Status</strong>Actively seeking mentorship &amp; collaboration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="Full name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input class="form-input" type="text" placeholder="Collaboration / Feedback / Mentorship…"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us what you're thinking…"></textarea>
+      </div>
+      <button class="btn btn-primary" style="align-self:flex-start;" onclick="submitForm(this)">Send Message</button>
+    </div>
+  </div>
+
+  <footer style="margin-top:80px;">
+    <div class="footer-logo">GENCITY 3D</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('vision');return false;">Vision</a></li>
+      <li><a href="#" onclick="showPage('procity');return false;">Procity</a></li>
+      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Gencity 3D · Team Pentacode</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     APPLICATION SCRIPTS (loaded at end of body)
+════════════════════════════════════════ -->
+<script src="js/main.js"></script>
+<script src="js/procity.js"></script>
+
+</body>
+</html>
